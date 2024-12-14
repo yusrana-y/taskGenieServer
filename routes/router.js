@@ -15,19 +15,19 @@ router.post("/login",userController.loginController)
 
 //add a task http://localhost:3000/add-task
 
-router.post("/add-task",jwtMiddleware,taskController.addTaskController)
+router.post("/api/tasks",jwtMiddleware,taskController.addTaskController)
 
 // get all tasks http://localhost:3000/get-AllTask
 
-router.get("/get-AllTask",jwtMiddleware,taskController.getAllTaskController)
+router.get("/api/tasks",jwtMiddleware,taskController.getAllTaskController)
 
 //delete a single task http://localhost:3000/tId/delete-task
 
-router.delete("/:tId/delete-task",jwtMiddleware,taskController.deleteTaskController)
+router.delete("/api/tasks/:tId",jwtMiddleware,taskController.deleteTaskController)
 
-//update a single task http://localhost:3000/tId/tId/update-task
+//update a single task http://localhost:3000/api/tasks/:tId
 
-router.put("/:tId/update-task",jwtMiddleware,taskController.editTaskController)
+router.put("/api/tasks/:tId",jwtMiddleware,taskController.editTaskController)
 
 
 module.exports = router

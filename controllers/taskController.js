@@ -5,7 +5,7 @@ const tasks = require('../models/taskModel')
 
 exports.addTaskController = async (req, res) => {
     console.log("inside add task controller")
-    //take data fro the frontend 
+    //take data from the frontend 
     const { title, desc, sDate, eDate } = req.body
     console.log(title, desc, sDate, eDate)
     //take the userId from the token using jwtMiddleware.
@@ -34,10 +34,19 @@ exports.addTaskController = async (req, res) => {
 exports.getAllTaskController = async (req, res) => {
     console.log("inside get all task controller")
     const userId = req.userId
+
+    const searchKey = req.query.search
+    console.log(searchKey);
+    
+    const query = {
+        title:{
+            $regex:searchKey,$options:"i"
+        }
+    }
     //read data from mongoDB
     try 
     {
-        const allTasks = await tasks.find({userId})
+        const allTasks = await tasks.find({ ...query, userId });
         console.log(allTasks);
         if (allTasks) {
             res.status(200).json(allTasks)
@@ -94,3 +103,4 @@ exports.editTaskController = async(req,res)=>{
         res.status(401).json(err)
     }
 }
+
